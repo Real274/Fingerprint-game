@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сканер будущего</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #121212;
+            color: white;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .scanner {
+            width: 180px;
+            height: 250px;
+            background: linear-gradient(45deg, #00ffcc, #0066ff);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 40px auto;
+            cursor: pointer;
+            position: relative;
+            box-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
+        }
+        .scanner::before {
+            content: "";
+            width: 100px;
+            height: 140px;
+            background: rgba(0, 255, 255, 0.3);
+            position: absolute;
+            top: 20px;
+            border-radius: 10px;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .scanner.active::before {
+            animation: scan 1.5s infinite linear;
+        }
+        @keyframes scan {
+            0% { top: 20px; opacity: 0.3; }
+            50% { top: 80px; opacity: 1; }
+            100% { top: 140px; opacity: 0.3; }
+        }
+        .fingerprint {
+            font-size: 50px;
+            color: white;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+        .result {
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            padding: 10px;
+            background: rgba(0, 255, 255, 0.2);
+            border-radius: 10px;
+            display: inline-block;
+            min-width: 250px;
+            box-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>🔮 Узнай, кем ты будешь в будущем!</h1>
+    <p>Приложи палец к сканеру и узнай свою судьбу.</p>
+    
+    <div class="scanner" onclick="startScan()">
+        <div class="fingerprint">🖐</div>
+    </div>
+    
+    <p class="result" id="result"></p>
+
+    <script>
+        function startScan() {
+            let scanner = document.querySelector(".scanner");
+            let result = document.getElementById("result");
+            
+            let professions = [
+                "💻 Разработчик ПО", "🧑‍🎨 Дизайнер", "🎮 Геймдизайнер", "🖥 Фронтенд-разработчик", "⚙ Бэкенд-разработчик",
+                "🤖 Инженер ИИ", "📱 Разработчик мобильных приложений", "🎥 Видео-монтажер", "📝 Копирайтер", "🖊 Графический дизайнер",
+                "🧑‍🔬 Ученый", "⚕ Врач", "🧑‍⚖ Адвокат", "🏗 Архитектор", "🚀 Космонавт",
+                "📡 Инженер NASA", "⚡ Электрик", "🚗 Автомеханик", "👮‍♂ Полицейский", "🚒 Пожарный",
+                "🎤 Певец", "📷 Фотограф", "📚 Писатель", "🗿 Скульптор", "🎭 Актер",
+                "🏆 Олимпийский чемпион", "⚽ Футболист", "🏀 Баскетболист", "🥋 Мастер боевых искусств", "🏎 Гонщик",
+                "🎸 Музыкант", "🎮 Киберспортсмен", "🛠 Слесарь", "🚢 Капитан корабля", "🛰 Спутниковый инженер",
+                "💰 Инвестор", "🏦 Банкир", "📈 Бизнесмен", "👨‍🍳 Шеф-повар", "🎪 Цирковой артист"
+            ];
+            
+            scanner.classList.add("active");
+            result.textContent = "Сканирование...";
+            
+            setTimeout(() => {
+                let randomIndex = Math.floor(Math.random() * professions.length);
+                result.textContent = "Твоя профессия: " + professions[randomIndex];
+                scanner.classList.remove("active");
+            }, 2000);
+        }
+    </script>
+
+</body>
+</html>
